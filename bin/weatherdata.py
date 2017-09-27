@@ -1,15 +1,20 @@
 import json, requests, time, datetime
 
 # config od openweather map api / key / city id
-key = 'YOUR KEY HERE'
+key = '081edeca2a2135616d55841c9ff44ddf'
 units = 'metric'
 cityid = '650224'
 sleep_time = 3600 #seconds between calls (data is updated every 2 hours)
 
 def SaveData( filename, data ):
-	# save location
+	""" SaveData(
+		filename - name of file to be saved
+		data - data string to be saved
+		)
+		Function will overwrite whole file.
+		File is created if it does not exist
+	"""
 	saveloc = "/home/weather/data/"
- 	"save data with filename int path /home/weather/data"
 	f = open('{}{}'.format(saveloc,filename),'w+')
  	f.write(data)
  	f.close()
