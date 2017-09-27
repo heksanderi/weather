@@ -1,0 +1,34 @@
+import json, requests, time, datetime
+
+# config od openweather map api / key / city id
+key = '081edeca2a2135616d55841c9ff44ddf'
+units = 'metric'
+cityid = '650224'
+url=requests.get('http://api.openweathermap.org/data/2.5/weather?id='+cityid+'&units='+units+'&APPID='+key)
+sleeptime_seconds = 3600 # seleep between calls
+
+
+def SaveData( filename, data ):
+	# save location
+	saveloc = "/home/weather/data/"
+ 	"save data with filename int path /home/weather/data"
+	f = open('{}{}'.format(saveloc,filename),'w+')
+ 	f.write(data)
+ 	f.close()
+ 	return;
+# main loop forever and sleep
+while True:
+ weather = json.loads(url.text)
+ print weather['main']['temp'],"C"
+ print weather['weather'][0]['description']
+ ・f = open('/home/weather/weather.dat','w')
+ f.write(str(weather['dt'])+";"+str(weather['main']['temp'])+';'+str(weather['weather'][0]['id'])+";"+str(weather['wind']['speed'])+";"+str(weather['main']['humidity']))
+ f.close()
+ SaveData( filename='timestamp.log', data=str(weather['dt']))
+ SaveData( filename='outdoor.log', data=str(weather['main']['temp']))
+ SaveData( filename='weather_id.log', data=str(weather['weather'][0]['id']))
+ SaveData( filename='wind.log', data=str(weather['wind']['speed']))
+ SaveData( filename='humidity.log', data=str(weather['main']['humidity']))
+
+ time.sleep(3600); # delay for on hour sleep (api weather data is update every 2 hours on servers)
+# weather condition codes -> https://openweathermap.org/weather-conditions
