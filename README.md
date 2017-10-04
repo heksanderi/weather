@@ -11,16 +11,19 @@ If you want to change this you must edit the following files:
   <li>use your actual location in rc.local startup script</li>
   </ul>
 
-Clone the project:
+Clone the project and give permimssions:
 <pre>
-sudo git clone https://github.com/heksanderi/weather.git /home/
+sudo git clone https://github.com/heksanderi/weather.git /home/weather
+sudo chown root /home/weather/bin/runwther.sh
+sudo chmod u+x /home/weather/bin/runwther.sh
 </pre>
 <h2>Configuration</h2>
 <ul>
   <li>Get api key from openweathermap: http://openweathermap.org/appid
   <li>Get location id for your city/area http://openweathermap.org/find and get the numer code from url: http://openweathermap.org/city/7645026 has city/location id of 7645026
   </ul>
-  
+
+
 Set variables in weather/bin/weatherdata.py
 <pre>
  key = 'YOUR API KEY HERE'
