@@ -14,8 +14,8 @@ If you want to change this you must edit the following files:
 Clone the project and give permimssions:
 <pre>
 sudo git clone https://github.com/heksanderi/weather.git /home/weather
-sudo chown root /home/weather/bin/runwther.sh
-sudo chmod u+x /home/weather/bin/runwther.sh
+sudo chown root /home/weather/bin/runweather.sh
+sudo chmod u+x /home/weather/bin/runweather.sh
 </pre>
 <h2>Configuration</h2>
 <ul>
