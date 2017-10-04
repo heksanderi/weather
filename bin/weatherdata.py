@@ -1,10 +1,24 @@
 import json, requests, time, datetime
 
 # config od openweather map api / key / city id
-key = 'YOUR API KEY HERE'
+key = '081edeca2a2135616d55841c9ff44ddf'
 units = 'metric'
 cityid = '650224'
 sleep_time = 3600 #seconds between calls (data is updated every 2 hours)
+def myprint(d, root,index):
+  rootfolder = "{}.".format(root)
+  if not root:
+   rootfolder = ""
+  for k, v in d.items():
+    if isinstance(v, dict):
+      myprint(v,"{}{}".format(rootfolder,k),index)
+    elif isinstance(v, list):
+	for ke in v:
+         index += 1
+         myprint(ke,"{}{}".format(rootfolder,k),index)
+    else: 
+      #print("{0}{1} : {2}".format(rootfolder,k, v))
+      SaveData("{}{}_{}".format(rootfolder,k,index),"{}".format(v))
 
 def SaveData( filename, data ):
 	""" SaveData(
@@ -14,21 +28,23 @@ def SaveData( filename, data ):
 		Function will overwrite whole file.
 		File is created if it does not exist
 	"""
-	saveloc = "/home/weather/data/"
+	saveloc = "./data/"
 	f = open('{}{}'.format(saveloc,filename),'w+')
  	f.write(data)
  	f.close()
  	return;
 
-url=requests.get('http://api.openweathermap.org/data/2.5/weather?id='+cityid+'&units='+units+'&APPID='+key)
+urlf=requests.get('http://api.openweathermap.org/data/2.5/forecast?id='+cityid+'&units='+units+'&APPID='+key)
+urlw=requests.get('http://api.openweathermap.org/data/2.5/weather?id='+cityid+'&units='+units+'&APPID='+key)
 
 while True:
- weather = json.loads(url.text)
- SaveData( filename='timestamp.log', data=str(weather['dt']))
- SaveData( filename='outdoor.log', data=str(weather['main']['temp']))
- SaveData( filename='weather_id.log', data=str(weather['weather'][0]['id']))
- SaveData( filename='wind.log', data=str(weather['wind']['speed']))
- SaveData( filename='humidity.log', data=str(weather['main']['humidity']))
-
+ weather = json.loads(urlw.text)
+ #print weather
+ forecast = json.loads(urlf.text)
+ #print forecast
+ myprint(weather,"weather",0)
+ myprint(forecast,"forecast",0)
+ #print "{}".format(type(weather['weather'])) 
+ #quit()
  time.sleep(sleep_time); # delay  (api weather data is update every 2 hours on servers)
  # weather condition codes -> https://openweathermap.org/weather-conditions
