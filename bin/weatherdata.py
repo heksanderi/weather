@@ -1,7 +1,7 @@
 import json, requests, time, datetime
 
 # config od openweather map api / key / city id
-key = '081edeca2a2135616d55841c9ff44ddf'
+key = 'YOUR API KEY'
 units = 'metric'
 cityid = '650224'
 sleep_time = 3600 #seconds between calls (data is updated every 2 hours)
