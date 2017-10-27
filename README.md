@@ -1,5 +1,5 @@
 # weather-pi
-Script for reading weather data  from open weather map into files on rasperry pi (for talologger / OWFS)
+Script for reading weather data and forecast from open weather map into filesystem on rasperry pi (for talologger / OWFS)
 
 <h2>Installation and configuration</h2>
 
@@ -31,7 +31,7 @@ Set variables in weather/bin/weatherdata.py
  cityid = '650224'
 </pre>
 
-<h2>Test script</h2>
+<h2>Test the script</h2>
 <pre>
   sudo python /home/weather/bin/weatherdata.py
 </pre>
