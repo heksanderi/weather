@@ -28,7 +28,7 @@ def SaveData( filename, data ):
 		Function will overwrite whole file.
 		File is created if it does not exist
 	"""
-	saveloc = "./data/"
+	saveloc = "../data/"
 	f = open('{}{}'.format(saveloc,filename),'w+')
  	f.write(data)
  	f.close()
