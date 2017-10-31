@@ -1,10 +1,10 @@
-# weather-pi
-Script for reading weather data and forecast from open weather map into filesystem on rasperry pi (for talologger / OWFS)
+# Weather pi
+Script for reading weather data and forecast from open weather map into filesystem on rasperry pi etc. running (for talologger / OWFS).
+The script flattens the json response into filesystem recursively.
 
 <h2>Installation and configuration</h2>
 
-By default the script assumes it is installed in /home/weather/ 
-If you want to change this you must edit the following files:
+By default the script assumes it is installed in /home/weather/ and if you want to change this you must edit the following files:
 <ul>
   <li>/bin/weatherdata.py</li>
   <li>/bin/runweather.sh</li>
@@ -52,3 +52,36 @@ Add the following and exit with CTRL+X and saving changes with 'y'
 <pre>
 /home/weather/bin/runweather.sh &
 </pre>
+
+<h2>Talologger config</h2>
+You will need to add OWFS measurement to taloLogger.conf file and reboot system to start recording readings.
+But first need to decide which parameter you want to log and find the correct filenames.
+The data is stored by default into /home/weather/data/ folder.
+
+Edit the config file:
+<pre>
+  pi@raspberrypi ~ $ sudo pico /home/talo/bin/taloLogger/taloLogger.conf
+</pre>
+  
+For an example current outside temperature, humidity and wind speed are stored in files
+<pre>
+/home/weather/data/weather.main.temp_1
+/home/weather/data/weather.main.humidity_1
+/home/weather/data/weather.wind.speed_1
+</pre>
+this means that in taloLogger.conf you have to configure three measurement points in the section called "# OneWire measurement points configuration"
+<pre>
+# weatherdata
+@OWFS:OWFS = OUTDOOR_T:1:/home/weather/data/weather.main.temp_1
+@OWFS:OWFS = OUTDOOR_RH:1:/home/weather/data/weather.main.humidity_1
+@OWFS:OWFS = OUTDOOR_WIND:1:/home/weather/data/weather.wind.speed_1
+</pre>
+
+And then add three measurements in the Logged measurement points section
+<pre>
+@MEASURE = T_OUTDOOR:OWFS.OUTDOOR_T
+@MEASURE = RH_OUTDOOR:OWFS.OUTDOOR_RH
+@MEASURE = WIND_OUTDOOR:OWFS.OUTDOOR_WIND
+</pre>
+
+
